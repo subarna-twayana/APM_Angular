@@ -56,7 +56,10 @@ export class ProductListComponent implements OnInit{
   toggleImage(): void{
     this.showImage = !this.showImage;
   }
-
+  
+  onRatingClicked(message: string): void {
+    this.pageTitle = 'Product List: ' + message;
+  }
   performFilter(filterBy: string): IProduct[]{
     filterBy = filterBy.toLocaleLowerCase();
     return this.products.filter((product: IProduct) =>
