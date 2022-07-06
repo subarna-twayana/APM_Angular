@@ -1,17 +1,22 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { IProduct } from "./product";
 
 @Component({
     selector: 'pm-products',
-    templateUrl: './product-list.Component.html'
+    templateUrl: './product-list.Component.html',
+    styleUrls: ['./product-list.component.css']
 })
 
-export class ProductListComponent {
+export class ProductListComponent implements OnInit{
+  ngOnInit(): void {
+    console.log ("Method not implemented.");
+  }
     pageTitle: string = 'Product List';
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean =false;
     listFilter: string = 'cart';
-    products: any[] =[
+    products: IProduct[] =[
         {
           "productId": 1,
           "productName": "Garden Cart",
