@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 import { IProduct } from "./product";
 import { ProductService } from "./product.service";
 
@@ -10,17 +11,13 @@ import { ProductService } from "./product.service";
 })
 
 export class ProductListComponent implements OnInit{
-  ngOnInit(): void {
-    this.products = this.productService.getProducts();
-    this.filteredProducts = this.products;
-    // this.listFilter = 'cart';
-    // console.log ("Method not implemented.");
-  }
-
+ 
     pageTitle: string = 'Product List';
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean =false;
+    errorMessage = '';
+    sub!: Subscription;
     // listFilter: string = 'cart';
 
     private _listFilter: string = '';
@@ -38,6 +35,16 @@ export class ProductListComponent implements OnInit{
     products: IProduct[] =[];
   constructor(private productService: ProductService){
 
+  }
+
+  ngOnInit(): void {
+    this.sub = this.productService.getProducts().subscribe({
+      next: products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error: err => this.errorMessage = err
+    }) ;
   }
   
   toggleImage(): void{
