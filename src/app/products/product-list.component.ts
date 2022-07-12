@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { IProduct } from "./product";
 import { ProductService } from "./product.service";
@@ -10,7 +10,7 @@ import { ProductService } from "./product.service";
     providers: [ProductService]
 })
 
-export class ProductListComponent implements OnInit{
+export class ProductListComponent implements OnInit, OnDestroy{
  
     pageTitle: string = 'Product List';
     imageWidth: number = 50;
@@ -35,6 +35,9 @@ export class ProductListComponent implements OnInit{
     products: IProduct[] =[];
   constructor(private productService: ProductService){
 
+  }
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   ngOnInit(): void {
